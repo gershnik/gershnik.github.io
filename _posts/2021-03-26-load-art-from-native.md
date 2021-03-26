@@ -9,7 +9,7 @@ tags: android jni c++
 
 ## Intro
 
-This article is a summary of what it takes to create a native Android command-line application that loads and uses ART virtual machine. The precise details on how to do it have changed over the years as Android evolved. This post is accurate as of Android 10 and NDK 21.3. 
+This article is a summary of what it takes to create a native Android command-line application that loads and uses ART virtual machine. The precise details on how to do it have changed over the years as Android evolved. This post is accurate as of Android 11 and NDK 21.3. 
 
 The self-contained source code for this article can be found on [Github](https://github.com/gershnik/android-cmdline-jni)
 
