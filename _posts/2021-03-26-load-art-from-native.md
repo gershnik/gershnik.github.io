@@ -92,7 +92,7 @@ The overall process is conceptually simple:
 
 * Load shared library containing ART virtual machine into the process.
   
-  The shared library containing ART VM is called `libart.so`. In the past it was located where all normal system shared libraries live: `system\lib`. Now it seems to be moved into `/apex/com.android.art/lib` or `/apex/com.android.art/lib64`.
+  The shared library containing ART VM is called `libart.so`. In the past it was located where all normal system shared libraries live: `system\lib`. Now it seems to be moved into `/apex/com.android.art/lib` or `/apex/com.android.art/lib64`. (If you are on Android 10 it is `/apex/com.android.runtime/lib[64]` there)
 
   Loading the library via `dlopen()` from the new location is not enough, though. It has implicit dependencies for other libraries in the same location which cannot be resolved in this case. Instead, you need to set `LD_LIBRARY_PATH` for the process.
 * Call `JNI_CreateJavaVM` [invocation API](https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/invocation.html)
