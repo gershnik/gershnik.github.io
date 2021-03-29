@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Efficient reverse UTF-8 decoder"
+title:  "Efficient backward UTF-8 decoder"
 date:   2021-03-24 07:08:00 -0700
 tags: c++ unicode
 ---
 
-Wait, what is a **reverse** UTF-8 decoder and what do you need it for? 
+Wait, what is a **backward** UTF-8 decoder and what do you need it for? 
 
 Consider a UTF-8 encoded Unicode string that you want to process from back to front for some reason. Perhaps you want to remove trailing whitespace (like `rtrim` function in Python does) or locate last instance of some Unicode character based on some criteria. 
 
@@ -17,7 +17,7 @@ It is indeed possible. The way [UTF-8](https://en.wikipedia.org/wiki/UTF-8) is s
 
 The best known forward UTF-8 decoder (as far as I am aware) is [Björn Höhrmann's](https://bjoern.hoehrmann.de/utf-8/decoder/dfa/) one. It uses a clever state machine technique to avoid a long sequence of performance killing `if` statements that slow down naive brute force decoders. 
 
-It is possible to apply the same principles to reverse decoding. If you are anxious for the code you can jump directly to the [Code](#code) section. If you want to know how it works, read on.
+It is possible to apply the same principles to do reverse decoding. If you are anxious for the code you can jump directly to the [Code](#code) section. If you want to know how it works, read on.
 
 ## State machine
 
