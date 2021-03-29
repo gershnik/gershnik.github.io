@@ -35,10 +35,10 @@ With this state machine implementation is more or less straightforward. For each
 
 The code for the decoder is given below. It has two notable differences from Höhrmann's
 
-* It is written in C++ (C++17 to be precise). If you want it in C or any other language, the transformation should be pretty straightforward
+* It is written as a C++ (C++17 to be precise) class. If you want it as a simple C function, the transformation should be pretty straightforward
 * It does not get "stuck" in error state. When a new character arrives in the error state the decoding starts again just like from 'accepted' state. I found this semantics more convenient than having sticky errors and resetting the decoder manually.
 
-Similar to Höhrmann's the state values are pre-multiplied by 12 to enable convenient access to them in the state table.
+Similar to forward decoder the state values are pre-multiplied by 12 to enable convenient access to them in the state table.
 
 ```cpp
 //
