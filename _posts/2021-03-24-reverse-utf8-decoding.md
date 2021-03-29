@@ -5,6 +5,11 @@ date:   2021-03-24 07:08:00 -0700
 tags: c++ unicode
 ---
 
+* TOC
+{:toc}
+
+## Intro
+
 Wait, what is a **backward** UTF-8 decoder and what do you need it for? 
 
 Consider a UTF-8 encoded Unicode string that you want to process from back to front for some reason. Perhaps you want to remove trailing whitespace (like `rtrim` function in Python does) or locate last instance of some Unicode character based on some criteria. 
@@ -41,30 +46,6 @@ The code for the decoder is given below. It has two notable differences from Hö
 Similar to forward decoder the state values are pre-multiplied by 12 to enable convenient access to them in the state table.
 
 ```cpp
-//
-// Copyright 2020 Eugene Gershnik
-//
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file or at
-// https://github.com/gershnik/gershnik.github.io/blob/main/LICENSE
-//
-// Based on Flexible and Economical UTF-8 Decoder
-// Copyright (c) 2008-2009 Bjoern Hoehrmann <bjoern@hoehrmann.de>
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-// and associated documentation files (the "Software"), to deal in the Software without restriction, 
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all copies or 
-// substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//
 class reverse_utf8_decoder
 {
 public:
@@ -214,6 +195,40 @@ std::pair<InIt, InIt> find_reverse_utf8(InIt first, InIt last, Pred pred)
     return {last, last};
 }
 
-
 ```  
 
+## License
+
+The following license applies to all code on this page
+
+```txt
+
+Copyright 2020 Eugene Gershnik
+
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file or at
+https://github.com/gershnik/gershnik.github.io/blob/master/LICENSE
+
+Based on Flexible and Economical UTF-8 Decoder
+Copyright (c) 2008-2009 Bjoern Hoehrmann <bjoern@hoehrmann.de>
+Permission is hereby granted, free of charge, to any person 
+obtaining a copy of this software  and associated documentation 
+files (the "Software"), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, 
+publish, distribute, sublicense, and/or sell copies of the Software, 
+and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included 
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+```
