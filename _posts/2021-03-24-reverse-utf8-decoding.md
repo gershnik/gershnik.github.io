@@ -211,6 +211,7 @@ https://github.com/gershnik/gershnik.github.io/blob/master/LICENSE
 
 Based on Flexible and Economical UTF-8 Decoder
 Copyright (c) 2008-2009 Bjoern Hoehrmann <bjoern@hoehrmann.de>
+
 Permission is hereby granted, free of charge, to any person 
 obtaining a copy of this software  and associated documentation 
 files (the "Software"), to deal in the Software without restriction, 
