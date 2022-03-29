@@ -38,7 +38,7 @@ Fortunately, there is another way and it can even be made relatively painless wi
 The general approach is:
 
 1. Create a **symbolic link** to desired Xcode's `LLDB.framework` in `~/.vscode/extensions/ms-vscode.cpptools-<version>/debugAdapters/lldb-mi/bin`. Note that this is a user directory and so ok to write to. This alone takes care of CMake debugging.
-2. Create a **symbolic** link somewhere easy to remember to `~/.vscode/extensions/ms-vscode.cpptools-<version>/debugAdapters/lldb-mi/bin/lldb-mi`. Then use that link as `miDebuggerPath` setting. This takes care of `launch.json`-style debugging.
+2. Create a **symbolic link** somewhere easy to remember to `~/.vscode/extensions/ms-vscode.cpptools-<version>/debugAdapters/lldb-mi/bin/lldb-mi`. Then use that link as `miDebuggerPath` setting. This takes care of `launch.json`-style debugging.
   \
   \
   For example you could do something like 
