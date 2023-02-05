@@ -9,7 +9,7 @@ tags: excel
 [concatenate]: <https://support.microsoft.com/en-us/office/concatenate-function-8f8ae884-2ca8-4f7a-b093-75d702bea31d>
 <!-- End References -->
 
-Excel provides two seemingly identical functions: [CONCAT][concat] and [CONCATENATE][concatenate] the official documentation for both doesn't really say what are the differences (if any) between the two other than the cryptic difference in descriptions.
+Excel provides two seemingly identical functions: [CONCAT][concat] and [CONCATENATE][concatenate]. The official documentation for both doesn't really say what are the differences (if any) between the two other than the cryptic difference in descriptions:
 
 For CONCAT: "Combines the text from multiple ranges and/or strings..."
 
