@@ -39,7 +39,7 @@ But if you enter `=CONCATENATE(A2:A4, A1:C1)` you will get
 
 Hopefully this makes things clear. 
 
-The usual disclaimer applies: all this is based on Excel on the Wb behavior as of the date of this article. Nothing prevents Microsoft from changing behavior of either or both functions at a later date.
+The usual disclaimer applies: all this is based on Excel on the Web behavior as of the date of this article. Nothing prevents Microsoft from changing behavior of either or both functions at a later date.
 
 
 
