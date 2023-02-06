@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+date: 2023-02-05T00:00:00PST
 permalink: /about/
 ---
 

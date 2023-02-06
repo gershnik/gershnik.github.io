@@ -32,7 +32,7 @@ google_analytics: G-XHBLPB2RK5
 theme: minima
 plugins:
   - jekyll-feed
-  - jekyll-sitemap
+#  - jekyll-sitemap
 
 
 # Exclude from processing.
