@@ -254,16 +254,10 @@ PLATFORMS
   x86_64-darwin-22
 
 DEPENDENCIES
-  activesupport (>= 6.1.7.1)
-  addressable (>= 2.8.0)
-  commonmarker (>= 0.23.4)
   github-pages
   jekyll-feed (~> 0.15)
-  kramdown (>= 2.3.1)
   minima (~> 2.5.1)
-  nokogiri (>= 1.11.4)
-  rexml (>= 3.2.5)
-  tzinfo (>= 1.2.10)
+  tzinfo (~> 1.2.10)
   tzinfo-data
   wdm (~> 0.1.1)
 
