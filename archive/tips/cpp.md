@@ -310,7 +310,7 @@ Generalizing this to support `wchar_t` is left as an exercise for the reader. ðŸ
 ## atexit() and dynamic/shared libraries
 {: #atexit_dll}
 
-C and C++ standard libraries include a sometimes useful function: `atexit()`. It allows the caller to register a callback that is going to be called when the application exits (normally). In C++ it is also integrated with the mechanism that calls destructors of global objects so things that were created before a given call to `atexit()` will be destroyed before the callback and vice versa. All this should be well known and it works perfectly fine until DLLs or shared libraries enter the picture.
+C and C++ standard libraries include a sometimes useful function: `atexit()`. It allows the caller to register a callback that is going to be called when the application exits (normally). In C++ it is also integrated with the mechanism that calls destructors of global objects so things that were created before a given call to `atexit()` will be destroyed after the callback and vice versa. All this should be well known and it works perfectly fine until DLLs or shared libraries enter the picture.
 
 The problem is, of course, that dynamic libraries have their own lifetime that, in general, could end before the main application's one. If a code in a DLL registers one of its own functions as an `atexit()` callback this callback should better be called before the DLL is unloaded. Otherwise, a crash or something worse will happen during the main application exit. (To make things nasty crashes during exit are notoriously hard to debug since many debuggers have problem dealing with dying processes).
 
