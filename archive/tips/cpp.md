@@ -241,67 +241,32 @@ That's it. 🙂
 ## How to printf() into std::string
 {: string_printf}
 
-If you work on any real-life project, sooner or later you may hit this problem. How to perform `printf()`-style output with the destination being `std::string`? Of course, the only "standard" solution to this is to first `sprintf()` into a char buffer and then construct a string from it. Something like this
+If you work on any real-life project, sooner or later you may hit this problem. How to perform `printf()`-style output with the destination being `std::string`? With C++11 this is perfectly possible:
 
 ```cpp
 int sprintf(std::string & res, const char * format, ...)
 {
     va_list vl;
     va_start(vl, format);
-    const int size = determine_required_size(format, vl);
-    if (size == -1)
-        return ret;
-    std::vector<char> buf(size);
-    const int ret = vsprintf(&buf[0], format, vl);
-    if (ret >= 0)
-	res.assign(&buf[0], &buf[0] + ret);
+    const int size = vsnprintf(0, 0, format, vl);
     va_end(vl);
-    
-    return ret;
-}
-```
-
-Ignoring the question about implementing `determine_required_size()` for a second, this works but most programmers instinctively feel bad about doing it this way. After all `std::string` already has an internal buffer, so why waste time on allocating another one, then copying it? Unfortunately C++ standard says nothing about `std::string` internal buffer. It may be a single contiguous buffer suitable for C-style manipulation or it may be something else. So if you want your code to be 100% standard compatible you have to use something like the code above.
-
-Fortunately a standard is a standard and the real life is the real life. In real life all `std::string` implementations do have a single contiguous internal buffer just like `std::vector` does. Using this fact we can rewrite the above as
-
-```cpp
-int sprintf(std::string & res, const char * format, ...)
-{
-    va_list vl;
+    if (size <= 0)
+        return size;
+    size_t appendPos = res.size();
+    size_t appendSize = size_t(size) + 1;
+    res.resize(appendPos + appendSize);
     va_start(vl, format);
-    const int size = determine_required_size(format, vl);
-    if (size == -1)
-        return ret;
-    res.resize(size);
-    const int ret = vsprintf(&res[0], format, vl);
-    res.resize(ret >= 0 ? ret : 0);
+    const int ret = vsnprintf(&res[appendPos], appendSize, format, vl);
     va_end(vl);
-    
+    res.resize(appendPos + size_t(ret > 0 ? ret : 0));
     return ret;
 }
 ```
 
-Now the only thing we have left is to implement `determine_required_size()`. Unfortunately there is no standard way to write such function. One more-or-less portable way is to print into a null device (`/dev/null` on Unix or `NUL:` on Windows) and use the result of `fprintf` but doing so will be quite performance killing. However, if you are using VC its standard library helpfully provides a function that does just what we need -- `_vscprintf`. Using it we get the following simple function
+This appends to the existing string. It should be trivial to change if an "overwrite" semantics is desired.
 
-```cpp
-int sprintf(std::string & res, const char * format, ...)
-{
-    va_list vl;
-    va_start(vl, format);
-    const int size = _vscprintf(format, vl);
-    if (size == -1)
-        return ret;
-    res.resize(size);
-    const int ret = vsprintf(&res[0], format, vl);
-    res.resize(ret >= 0 ? ret : 0);
-    va_end(vl);
-    
-    return ret;
-}
-```
-
-Generalizing this to support `wchar_t` is left as an exercise for the reader. 🙂
+Note the re-initialization of `va_list`. On some platforms this might not be necessary but on others the first call to `vsnprintf` will
+"consume" it making the second call access random memory.
 
 [Back to top](#toc)
 
