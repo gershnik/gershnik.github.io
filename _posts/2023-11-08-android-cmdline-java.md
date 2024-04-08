@@ -9,7 +9,7 @@ tags: android jni c++ java
 
 <!-- References -->
 
-[prev-article]: 2021-03-26-load-art-from-native.md
+[prev-article]: {% post_url 2021-03-26-load-art-from-native %} 
 [android-sdk]: https://developer.android.com/studio
 [android-ndk]: https://developer.android.com/studio/projects/install-ndk
 [sdk-manager]: https://developer.android.com/studio/intro/update#sdk-manager
