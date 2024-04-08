@@ -1,4 +1,7 @@
 User-agent: *
 Disallow: /hidden
 
+User-agent: adidxbot
+Disallow: /hidden
+
 Sitemap: https://gershnik.github.io/sitemap.xml
