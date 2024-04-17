@@ -26,6 +26,12 @@ tags: embedded RP2040 Arduino
 * TOC
 {:toc}
 
+----
+
+<div style="font-size: larger" markdown="1">
+**Update 1**: The server described in this article works but is slow. Check out the [next article]({% post_url 2024-04-17-fast-https-arduino-nano-rp2040 %}) to find out how to make it fast and more up-to-date code.
+</div>
+
 ## The problem
 
 [Arduino Nano RP2040 Connect][board] comes equipped with [uBlox Nina W-102 module][nina-chip], which, at least when using the its [default firmware][nina-firmware] only supports **client** TLS connections. 
