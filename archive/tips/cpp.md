@@ -1,6 +1,8 @@
 ---
 layout: page
 exclude: true
+sitemap:
+  exclude: 'yes'
 title: "Tips: C++ language"
 ---
 
