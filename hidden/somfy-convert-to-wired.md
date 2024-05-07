@@ -1,6 +1,8 @@
 ---
 layout: post
 exclude: true
+sitemap:
+  exclude: 'yes'
 title:  "Converting battery powered Somfy blinds to wired connection"
 date: 2024-03-21 11:23:00 -0700
 tags: diy

@@ -1,6 +1,8 @@
 ---
 layout: page
 exclude: true
+sitemap:
+  exclude: 'yes'
 title: IOCP and Overlapped I/O
 ---
 

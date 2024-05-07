@@ -1,7 +1,13 @@
 User-agent: *
 Disallow: /hidden
 
+User-agent: *
+Disallow: /archive
+
 User-agent: adidxbot
 Disallow: /hidden
+
+User-agent: adidxbot
+Disallow: /archive
 
 Sitemap: https://gershnik.github.io/sitemap.xml
