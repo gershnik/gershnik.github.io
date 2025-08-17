@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Efficient backward UTF-8 decoder"
+description: "Description of how to implement an efficient backward UTF-8 decoder"
 date:   2021-03-24 07:08:00 -0700
 tags: c++ unicode
 ---

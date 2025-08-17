@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Installing Gitea from binary on macOS"
+description: "How to install Gitea from binary instead of Homebrew on macOS"
 tags: macos
 ---
 

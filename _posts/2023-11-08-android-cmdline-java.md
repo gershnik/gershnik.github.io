@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Creating Android command line application in Java"
+description: "How to creating an Android command line application in Java"
 tags: android jni c++ java
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "VSCode: native debugging with Xcode in a non-default location"
+description: "How to enable VSCode to use non-default Xcode installation for debugging"
 tags: c++ vscode macos xcode
 ---
 

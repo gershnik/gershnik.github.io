@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Difference between CONCAT and CONCATENATE in Excel"
+description: "Explanation of differences between CONCAT and CONCATENATE functions in Excel"
 tags: excel
 ---
 

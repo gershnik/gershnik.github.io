@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Loading Android ART virtual machine from native executables"
+description: "A summary of what it takes to create a native Android command-line application that loads and uses ART virtual machine"
 tags: android jni c++
 ---
 

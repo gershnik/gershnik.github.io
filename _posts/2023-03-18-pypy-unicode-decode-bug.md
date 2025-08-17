@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  PyPy's PyUnicode UTF-16 and UTF-32 decoders crash on NULL byteorder
+description: "A bug in PyPy's PyUnicode implementation"
 tags: python c++ annoyances
 ---
 

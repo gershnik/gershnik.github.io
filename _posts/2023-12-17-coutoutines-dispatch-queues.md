@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Implementing C++ coroutines with Apple dispatch queues"
+description: "Experiences creating a library to use C++ coroutines with Apple dispatch queues"
 tags: c++ macos ios xcode
 ---
 

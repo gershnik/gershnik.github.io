@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "The silliness of Excel XOR function"
+description: "The silliness of Excel XOR function when applied to more than 2 arguments"
 tags: excel
 ---
 
