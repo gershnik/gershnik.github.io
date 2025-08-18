@@ -1,0 +1,10 @@
+---
+---
+
+$content-width: 80%;
+$on-laptop: 80%;
+$on-palm: 95%;
+
+@import
+  "minima/skins/{{ site.minima.skin | default: 'classic' }}",
+  "minima/initialize";

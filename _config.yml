@@ -19,20 +19,31 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Random thoughts
-#email: gershnik@users.noreply.github.com
 description: >- # this means to ignore newlines until "baseurl:"
   Articles, posts and other content on software, programming and similar matters.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://gershnik.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-github_username:  gershnik
-linkedin_username: gershnik
 google_analytics: G-XHBLPB2RK5
 
 # Build settings
-theme: minima
+#theme: minima
+remote_theme: "jekyll/minima@1fe0fbf"
 plugins:
+  - jekyll-remote-theme
   - jekyll-feed
-#  - jekyll-sitemap
+
+author:
+  name: Random Thoughts
+
+minima:
+  skin: auto
+  social_links:
+    - title: gershnik at Github
+      url: https://github.com/gershnik
+      icon: github
+    - title: gershnik at LinkedIn
+      url: https://www.linkedin.com/in/gershnik
+      icon: linkedin
 
 kramdown:
   parse_block_html: true
