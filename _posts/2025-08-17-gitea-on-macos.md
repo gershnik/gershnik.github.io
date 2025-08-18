@@ -5,7 +5,7 @@ description: "How to install Gitea from binary instead of Homebrew on macOS"
 tags: macos
 ---
 
-[Gitea](https://about.gitea.com) is an awesome open source Git server that almost completely mimics Github.
+[Gitea](https://about.gitea.com/products/gitea/) is an awesome open source Git server that almost completely mimics Github.
 Unfortunately, its only officially supported method of installation on macOS is via Homebrew (see 
 [here](https://docs.gitea.com/installation/install-from-package#macos)).
 
