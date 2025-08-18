@@ -5,7 +5,7 @@ description: "How to install Gitea from binary instead of Homebrew on macOS"
 tags: macos
 ---
 
-[Gitea](https://gitea.elara.ws) is an awesome open source Git server that almost completely mimics Github.
+[Gitea](https://about.gitea.com) is an awesome open source Git server that almost completely mimics Github.
 Unfortunately, its only officially supported method of installation on macOS is via Homebrew (see 
 [here](https://docs.gitea.com/installation/install-from-package#macos)).
 
@@ -129,7 +129,7 @@ The following uses `nano` editor from command line. Feel free to use your favori
 but keep in mind that you will need to be root to edit the config file.
 
 ```bash
-sudo nano /Library/LaunchDaemons/ws.elara.gitea.plist
+sudo nano /Library/LaunchDaemons/io.gitea.web.plist
 ```
 
 Copy the following into it, save (Ctrl-O) and exit (Ctrl-X)
@@ -140,7 +140,7 @@ Copy the following into it, save (Ctrl-O) and exit (Ctrl-X)
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>ws.elara.gitea</string>
+    <string>io.gitea.web</string>
     <key>ProgramArguments</key>
     <array>
         <string>/usr/local/bin/gitea</string>
@@ -181,7 +181,7 @@ Copy the following into it, save (Ctrl-O) and exit (Ctrl-X)
 ## Load and start the daemon
 
 ```bash
-sudo launchctl load -w /Library/LaunchDaemons/ws.elara.gitea.plist
+sudo launchctl load -w /Library/LaunchDaemons/io.gitea.web.plist
 ```
 
 If everything works fine `/var/lib/gitea/log/stdout.log` should contain sane output and you should be able to navigate to `http://localhost:3000` to perform the first time setup. 
@@ -189,8 +189,8 @@ If everything works fine `/var/lib/gitea/log/stdout.log` should contain sane out
 You can start/stop the daemon via:
 
 ```bash
-sudo launchctl stop ws.elara.gitea
-sudo launchctl start ws.elara.gitea
+sudo launchctl stop io.gitea.web
+sudo launchctl start io.gitea.web
 ```
 
 ## Post-installation
