@@ -67,7 +67,7 @@ make
 Where `NDK_DIR` is the location of your NDK (usually `$ANDROID_HOME/ndk/major.minor.build` these days).
 Note that the ABI is set to `arm64-v8a` to run on a physical 64-bit device. If you want to run on a simulator use `x86` or `x86_64`. If for some reason you have an old 32-bit device use `armeabi-v7a`.
 
-If everything is ok, the above should produce `out\hello` executable. Now we need to put it on the device and run. In the past this would have been simple - just push it into `/sdcard` directory and run from there but Android has been tightening security screws relentlessly and nowadays most user-accessible places on the filesystem do not allow code execution. If your device is rooted or you are using an emulator this is not a big deal - you can override prohibitions or put the executable where execution is allowed. For example
+If everything is ok, the above should produce `out/hello` executable. Now we need to put it on the device and run. In the past this would have been simple - just push it into `/sdcard` directory and run from there but Android has been tightening security screws relentlessly and nowadays most user-accessible places on the filesystem do not allow code execution. If your device is rooted or you are using an emulator this is not a big deal - you can override prohibitions or put the executable where execution is allowed. For example
 
 ```bash
 adb root
@@ -76,7 +76,7 @@ adb push hello /data/hellodir
 adb shell /data/hellodir/hello
 ```
 
-However, if you device is not rooted the above won't work. Instead you have to use one location that, at the time of this writing, is left available: `/data/local/tmp`. Incidentally Android Studio uses that location to put helper files for remote debugging in, so presumably it is not an oversight and the place should stay available at least for a while. 
+However, if your device is not rooted the above won't work. Instead you have to use one location that, at the time of this writing, is left available: `/data/local/tmp`. Incidentally Android Studio uses that location to put helper files for remote debugging in, so presumably it is not an oversight and the place should stay available at least for a while. 
 So, instead of the above, do:
 
 ```bash
@@ -93,7 +93,7 @@ The overall process is conceptually simple:
 
 * Load shared library containing ART virtual machine into the process.
   
-  The shared library containing ART VM is called `libart.so`. In the past it was located where all normal system shared libraries live: `system\lib`. Now it seems to be moved into `/apex/com.android.art/lib` or `/apex/com.android.art/lib64`. (If you are on Android 10 it is `/apex/com.android.runtime/lib[64]` there)
+  The shared library containing ART VM is called `libart.so`. In the past it was located where all normal system shared libraries live: `system/lib`. Now it seems to be moved into `/apex/com.android.art/lib` or `/apex/com.android.art/lib64`. (If you are on Android 10 it is `/apex/com.android.runtime/lib[64]` there)
 
   Loading the library via `dlopen()` from the new location is not enough, though. It has implicit dependencies for other libraries in the same location which cannot be resolved in this case. Instead, you need to set `LD_LIBRARY_PATH` for the process.
 * Call `JNI_CreateJavaVM` [invocation API](https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/invocation.html)
