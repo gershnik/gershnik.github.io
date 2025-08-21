@@ -12,7 +12,7 @@ Unfortunately, its only officially supported method of installation on macOS is 
 If you, like me, are not a fan of Homebrew, it is possible to install it directly from binary.
 Gitea's website provides reasonably detailed [instructions](https://docs.gitea.com/installation/install-from-binary) on how set it up on Linux. This page attempts to translate them to macOS.
 
-If you follow this guid you might want to keep the original instructions open too for comparison and additional information.
+If you follow this guide you might want to keep the original instructions open too for comparison and additional information.
 
 * TOC
 {:toc}
