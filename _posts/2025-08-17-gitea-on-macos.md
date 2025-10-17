@@ -5,7 +5,7 @@ description: "How to install Gitea from binary instead of Homebrew on macOS"
 tags: macos
 ---
 
-_Update 2025-10-16_: Added [workaround for macOS Tahoe upgrade bug](#upon-upgrade-to-macos-tahoe-user-git-gets-its-primary-group-reset-to-stuff).
+_Update 2025-10-16_: Added [workaround for macOS Tahoe upgrade bug](#upon-upgrade-to-macos-tahoe-user-git-gets-its-primary-group-reset-to-staff).
 <hr style="border:none;height:1px;background-color:#f0f0f0;">
 
 [Gitea](https://about.gitea.com/products/gitea/) is an awesome open source Git server that almost completely mimics Github.
@@ -231,7 +231,7 @@ That's pretty much it. Further tweaks and configuration can be done by editing `
 
 ## Known Issues
 
-### Upon upgrade to macOS Tahoe user `git` gets its primary group reset to `stuff`
+### Upon upgrade to macOS Tahoe user `git` gets its primary group reset to `staff`
 
 macOS had issues with resetting users group membership upon upgrade for a long time. These get reported, fixed and
 then surface again. 😠
