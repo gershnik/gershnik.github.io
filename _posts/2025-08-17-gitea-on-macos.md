@@ -5,6 +5,9 @@ description: "How to install Gitea from binary instead of Homebrew on macOS"
 tags: macos
 ---
 
+_Update 2025-10-16_: Added [workaround for macOS Tahoe upgrade bug](#upon-upgrade-to-macos-tahoe-user-git-gets-its-primary-group-reset-to-stuff).
+<hr style="border:none;height:1px;background-color:#f0f0f0;">
+
 [Gitea](https://about.gitea.com/products/gitea/) is an awesome open source Git server that almost completely mimics Github.
 Unfortunately, its only officially supported method of installation on macOS is via Homebrew (see 
 [here](https://docs.gitea.com/installation/install-from-package#macos)).
@@ -225,4 +228,29 @@ Now the log will be in `/var/lib/gitea/log/gitea.log`.
 
 That's pretty much it. Further tweaks and configuration can be done by editing `/etc/gitea/app.ini`, configuring
 `sshd` and Gitea web interface.
+
+## Known Issues
+
+### Upon upgrade to macOS Tahoe user `git` gets its primary group reset to `stuff`
+
+macOS had issues with resetting users group membership upon upgrade for a long time. These get reported, fixed and
+then surface again. 😠
+
+If upon upgrade to Tahoe SSH connections to Gitea server suddenly stop working and you get the dreaded "Could not read from remote repository" error check the `git` user primary group:
+
+```bash
+id git
+```
+
+If it reports something like "uid=xxx **gid=20(staff)** then you have hit this issue. It should be
+"uid=xxx gid=yyy(**git**)`. To rectify:
+
+- Find the group ID of the `git` group:
+  ```bash
+  dscl . -read /Groups/git PrimaryGroupID
+  ```
+- Then re-apply this group ID to the `git` user:
+  ```bash
+  sudo dscl . -create /Users/git PrimaryGroupID <the id from previous step>
+  ```
 
