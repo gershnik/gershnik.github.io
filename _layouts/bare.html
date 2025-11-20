@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- seo title=false -%}
+  <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+  {%- feed_meta -%}
+  {%- if jekyll.environment == 'production' and site.google_analytics -%}
+    {%- include google-analytics.html -%}
+  {%- endif -%}
+
+  {%- if page.image -%}
+    <style>
+        .bare-title::before {
+            content:url({{ page.image | relative_url }});
+            display: inline;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+  {%- endif -%}
+
+  <title>{{ page.title }}</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="1024x1024" href="/favicon_1024.png">
+
+  <body>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title bare-title">{{ page.title | escape }}</h1>
+            </header>
+
+            <div class="post-content">
+                {{ content }}
+            </div>
+
+        </article>
+      </div>
+    </main>
+
+  </body>
+
+</html>
