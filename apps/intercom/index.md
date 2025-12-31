@@ -100,4 +100,4 @@ maillink.href = 'mailto:' + maillink.getAttribute('data-mail')+'@'+ maillink.get
 
 ## Footnotes
 
-[^1]: Google now requires developers to have [12 testers run the app for 14 days](https://support.google.com/googleplay/android-developer/answer/14151465) for new apps and _any major updates_. This is a free app made by a single developer. I have no 14 testers available and no intention to pay for one of many services that proliferated after this requirement was made.
+[^1]: Google now requires developers to have [12 testers run the app for 14 days](https://support.google.com/googleplay/android-developer/answer/14151465) for new apps and _any major updates_. This is a free app made by a single developer. I have no 12 testers available and no intention to pay for one of many services that proliferated after this requirement was made.
