@@ -8,3 +8,9 @@ $on-palm: 95%;
 @import
   "minima/skins/{{ site.minima.skin | default: 'classic' }}",
   "minima/initialize";
+
+blockquote.note {
+  border-left: 5px solid #2188ff;
+  background-color: #f6f8fa;
+  padding: 10px;
+}
