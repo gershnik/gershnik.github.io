@@ -7,7 +7,7 @@ image: images/intercom.png
 date: 2025-11-19 11:00:00 -0700
 ---
 
-Repurpose an old, unused iPhone/iPad/Android device or even Mac (Apple Silicone only) into an audio intercom. Install this app on both your regular devices and the unused one, put the unused device into a remote room in your house and you will be able to talk to whoever is in that room from your phone. No more yelling or walking over!
+Repurpose an old, unused iPhone/iPad/Android device or even a Mac (Apple Silicone only) into an audio intercom. Install this app on both your regular devices and the unused one, put the unused device into a remote room in your house and you will be able to talk to whoever is in that room from your phone. No more yelling or walking over!
 
 * TOC
 {:toc}
@@ -15,10 +15,11 @@ Repurpose an old, unused iPhone/iPad/Android device or even Mac (Apple Silicone 
 ## Basics 
 
 - There is no "cloud" or "server", no accounts to create and no service to sign up for. All communications happen locally, on your network, between your devices. Nothing is ever sent outside of your network. Nobody can connect to your devices from outside (and that includes yourself when you are not on your home network). This is an "intercom", not a general chat service. 
-- The app is free (as in beer) and there are no in-app purchases of any kind. 
-- The app is audio only. There is no support for video and no plans to add it.
+- Connecting to a device requires pairing using an access code that is only visible on the device. 
 - All devices must be on the same local network to communicate. 
-- All communications between devices are encrypted.
+- All communications between devices are encrypted. 
+- The app is audio only. There is no support for video and no plans to add it.
+- The app is free (as in beer) and there are no in-app purchases or ads of any kind. 
 
 
 The app can run in two modes: a terminal and a controller. The terminal is what you put in a remote room. In this mode the app runs continuously (turning the screen off is ok) and transmits the sound in and out. 
