@@ -65,6 +65,9 @@ Below is the list of various applications and libraries I've published over the 
 
 ## Helpers and tools
 
+* [android-cmdline-jni](https://github.com/gershnik/android-cmdline-jni){:target="_blank" rel="noopener"}
+: Minimal code to create a native Android command-line application that loads and uses ART virtual machine.
+
 * [libuuid-cmake](https://github.com/gershnik/libuuid-cmake){:target="_blank" rel="noopener"}
 : CMake build for [libuuid](https://github.com/util-linux/util-linux/tree/master/libuuid) library from [util-linux](https://github.com/util-linux/util-linux)
 
