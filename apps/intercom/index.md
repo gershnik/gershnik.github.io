@@ -40,7 +40,6 @@ Specific platform usage notes below:
 The app is available from AppStore: [https://apps.apple.com/us/app/tiny-intercom/id6755145518](https://apps.apple.com/us/app/tiny-intercom/id6755145518)
 
 Both iPhone and iPad are supported. The iPad version can also be run on Apple Silicone Macs.
-(watchOS companion app is coming soon!)
 
 The app on the AppStore supports iOS 10.3 or above. It can run on iPhone 5s or above and iPad Air (1st generation)/iPad Mini 2 or above. 
 
@@ -49,6 +48,22 @@ The name the app uses to identify the controller or terminal can be changed in e
 - On the terminal screen directly (tap the pencil icon next to the device name)
 
 You can use [Apple Configurator](https://support.apple.com/guide/apple-configurator-2/welcome/mac) to lock your terminal device into a “single app mode” (aka kiosk mode) to make it run just the intercom terminal and not allow to switch out of it. A good guide on how to do so can be found [here](https://www.howtogeek.com/252670/how-to-put-an-ipad-into-kiosk-mode-restricting-it-to-a-single-app/)
+
+### watchOS
+
+The iOS app has a companion watch app can be used as a controller to connect to terminals but **not** as a terminal.
+
+Unlike the full phone app the watch app has quite a few restrictions and limitations:
+
+- The paired phone must be on, nearby and connected to the local network where your terminals are. The watch app uses the phone to browse
+  for available terminals. Without the phone available it won't see anything.
+- New terminals must be paired from the phone first. The watch app itself is unable to pair. (There is no camera to snap a QR code and typing
+  a lengthy alphanumeric code on the watch would be a nightmare)
+- Updates to terminal names or availability may take up to 20 seconds (but usually less) to appear on the watch. It is not as instantaneous as on the phone. 
+- The UI when connected to a terminal is the standard Apple Watch "in-call" UI rather than a custom one as on the phone. This is an Apple
+  imposed limitation - not a design choice.<br/>
+  However, despite the UI that looks like a phone call you can still _either listen or talk but not both at the same time_. Tap the "mute" button to change from listening to talking and back.
+
 
 ### Android
 
@@ -62,11 +77,6 @@ When running in a terminal mode it is important to make Android not turn off the
 
 - Go to Settings > Apps > See all apps and find Tiny Intercom
 - Tap Battery and select Unrestricted.
-
-On Pixel devices you will also need to:
-- Go to Settings > Network & internet.
-- Select Adaptive connectivity (on the bottom of the screen)
-- Toggle it OFF.
 
 On earlier Android versions there is a "Keep Wi-Fi on during sleep" toggle under Settings > Wi-Fi > Advanced.
 
