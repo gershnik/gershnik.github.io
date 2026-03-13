@@ -56,6 +56,9 @@ Below is the list of various applications and libraries I've published over the 
 : A modern, no-dependencies, portable C++ library for manipulating [UUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier), 
   [ULIDs](https://github.com/ulid/spec), [NanoIDs](https://github.com/ai/nanoid) and [Cuid2s](https://github.com/paralleldrive/cuid2).
 
+* [processtitle](https://github.com/gershnik/processtitle){:target="_blank" rel="noopener"}
+: A Python extension module allows to customize process "title" as reported by `ps`, `top`, Activity Monitor, Task Manager and similar tools.
+
 * [PTL](https://github.com/gershnik/ptl){:target="_blank" rel="noopener"}
 : A C++ wrapper library for Posix and related calls.
 
