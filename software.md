@@ -29,8 +29,11 @@ Below is the list of various applications and libraries I've published over the 
 : A small tool that allows you to prevent a Windows machine from sleeping/hibernating. This is useful, for example, when connecting over SSH to a Windows machine that is configured to sleep when not used.
   Unlike other solutions to this task, keep-awake doesn't change global computer settings and so doesn't leave them 'orphaned' if it is abnormally terminated.
 
+* [mkdaemonuser](https://github.com/gershnik/mkdaemonuser){:target="_blank" rel="noopener"}
+: A command-line tool to create daemon user accounts on macOS and other Unix systems.
+
 * [wakeonlan](https://github.com/gershnik/wakeonlan){:target="_blank" rel="noopener"}
-: Yet another wake-on-lan command line tool.
+: Yet another wake-on-lan command-line tool.
 
 ## Libraries
 
@@ -79,9 +82,6 @@ Below is the list of various applications and libraries I've published over the 
 
 * [MbedNanoTLS](https://github.com/gershnik/MbedNanoTLS){:target="_blank" rel="noopener"}
 : An updated version of Mbed TLS for Arduino Mbed OS Nano boards.
-
-* [mkdaemonuser](https://github.com/gershnik/mkdaemonuser){:target="_blank" rel="noopener"}
-: A script to create a daemon user account on macOS and other Unix systems.
 
 * [Multi GH Action Runner](https://github.com/gershnik/multi-gh-action-runner){:target="_blank" rel="noopener"}
 : A Github Actions helper tool that orchestrates creation and running of multiple Github self-hosted runners driven by a config file. You can configure multiple runners per-repo for multiple repos and start and stop them all with a single command. The tool sets up new repos and cleans up no longer configured ones automatically at startup.
