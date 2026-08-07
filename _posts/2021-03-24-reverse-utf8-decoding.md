@@ -6,7 +6,9 @@ date:   2021-03-24 07:08:00 -0700
 tags: c++ unicode
 ---
 
-_Update 2026-08-07_: Added missing transition from state 6 on `f1..f3`. H/T [@PtrCz](https://github.com/PtrCz).
+_Updates 2026-08-07_: 
+* Added missing transition from state 6 on `f1..f3`. H/T [@PtrCz](https://github.com/PtrCz).
+* Fixed English spelling and grammar as directed by Claude.
 <hr style="border:none;height:1px;background-color:#f0f0f0;">
 
 * TOC
@@ -16,38 +18,38 @@ _Update 2026-08-07_: Added missing transition from state 6 on `f1..f3`. H/T [@Pt
 
 Wait, what is a **backward** UTF-8 decoder and what do you need it for? 
 
-Consider a UTF-8 encoded Unicode string that you want to process from back to front for some reason. Perhaps you want to remove trailing whitespace (like `rtrim` function in Python does) or locate last instance of some Unicode character based on some criteria. 
+Consider a UTF-8 encoded Unicode string that you want to process from back to front for some reason. Perhaps you want to remove trailing whitespace (like the `rtrim` function in Python does) or locate the last instance of some Unicode character based on some criteria. 
 
-If what you are looking for is a simple character or a string you can get away by just reverse searching for its UTF-8 representation as-is. UTF-8 is specifically designed to be allow it - no character forms a part of another (like some ancient encodings used to do). However, if you criteria more complex - perhaps you are looking for Unicode character properties - this approach is no longer feasible. 
+If what you are looking for is a simple character or a string, you can get away with just reverse searching for its UTF-8 representation as-is. UTF-8 is specifically designed to allow it - no character forms a part of another (like some ancient encodings used to do). However, if your criteria are more complex - perhaps you are looking for Unicode character properties - this approach is no longer feasible. 
 
-Of course you can just convert the entire string to UTF-32 first and search backwards in it but this is quite inelegant and wasteful. Shouldn't it be possible to go backward in the string and decode each UTF-32 codepoint in turn?
+Of course, you can just convert the entire string to UTF-32 first and search backwards in it, but this is quite inelegant and wasteful. Shouldn't it be possible to go backward in the string and decode each codepoint into UTF-32 in turn?
 
-It is indeed possible. The way [UTF-8](https://en.wikipedia.org/wiki/UTF-8) is specified allows to unambiguously decode a character by looking at its encoding form in reverse order. However, at the time of this writing I wasn't able to find any existing algorithm to do so.
+It is indeed possible. The way [UTF-8](https://en.wikipedia.org/wiki/UTF-8) is specified allows one to unambiguously decode a character by looking at its encoding form in reverse order. However, at the time of this writing I wasn't able to find any existing algorithm to do so.
 
-The best known forward UTF-8 decoder (as far as I am aware) is [Björn Höhrmann's](https://bjoern.hoehrmann.de/utf-8/decoder/dfa/) one. It uses a clever state machine technique to avoid a long sequence of performance killing `if` statements that slow down naive brute force decoders. 
+The best-known forward UTF-8 decoder (as far as I am aware) is [Björn Höhrmann's](https://bjoern.hoehrmann.de/utf-8/decoder/dfa/) one. It uses a clever state machine technique to avoid a long sequence of performance-killing `if` statements that slow down naive brute-force decoders. 
 
 It is possible to apply the same principles to do reverse decoding. If you are anxious for the code you can jump directly to the [Code](#code) section. If you want to know how it works, read on.
 
 ## State machine
 
-The state machine for reverse decoding is as follows. Just like with the forward decoding we start in state zero, and whenever we come back to it, we've seen a whole Unicode character. Transitions not in the graph are disallowed; they all lead to state one - the error state.
+The state machine for reverse decoding is as follows. Just like with the forward decoding, we start in state zero, and whenever we come back to it, we've seen a whole Unicode character. Transitions not in the graph are disallowed; they all lead to state one - the error state.
 
 ![State machine](/images/utf8-decoder-state-machine.svg)
 
-We will use the same character classes as Höhrmann's decoder - they have a nice property of removing the topmost bits of each byte and allow easier computation of codepoint value. With the character classes the state machine looks like this:
+We will use the same character classes as Höhrmann's decoder - they have a nice property of removing the topmost bits of each byte and allowing easier computation of the codepoint's value. With the character classes, the state machine looks like this:
 
 ![State machine with char classes](/images/utf8-decoder-state-machine-classes.svg)
 
-With this state machine implementation is more or less straightforward. For each character we need to lookup it's class then compute the next state based on the state machine while reconstructing the UTF-32 codepoint.
+With this state machine, the implementation is more or less straightforward. For each character we need to look up its class, then compute the next state based on the state machine while reconstructing the UTF-32 codepoint.
 
 ## Code
 
-The code for the decoder is given below. It has two notable differences from Höhrmann's
+The code for the decoder is given below. It has two notable differences from Höhrmann's:
 
 * It is written as a C++ (C++17 to be precise) class. If you want it as a simple C function, the transformation should be pretty straightforward
-* It does not get "stuck" in error state. When a new character arrives in the error state the decoding starts again just like from 'accepted' state. I found this semantics more convenient than having sticky errors and resetting the decoder manually.
+* It does not get stuck in the error state. When a new character arrives in the error state, the decoding starts again just like from the 'accepted' state. I found this behavior more convenient than having sticky errors and resetting the decoder manually.
 
-Similar to forward decoder the state values are pre-multiplied by 12 to enable convenient access to them in the state table.
+Similar to the forward decoder, the state values are pre-multiplied by 12 to enable convenient access to them in the state table.
 
 ```cpp
 class reverse_utf8_decoder
@@ -90,7 +92,7 @@ private:
     static constexpr uint8_t state_reject = 12;
     
     static constexpr const uint8_t s_state_table[] = {
-    // The first part of the table maps bytes to character classes that
+    // The first part of the table maps bytes to character classes
     // to reduce the size of the transition table and create bitmasks.
          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -115,7 +117,7 @@ private:
 };
 ```
 
-That's it. With this decoder you can iterate over UTF-8 backwards. For example
+That's it. With this decoder you can iterate over UTF-8 backwards. For example:
 
 ```cpp
 
@@ -163,9 +165,9 @@ assert(rend.base() == str.begin() + 4);
 
 ## A note on error handling
 
-In the example above the code threw an exception on invalid UTF-8. Often you want to handle it gracefully, substituting `U'\uFFFD'` for invalid character like UTF-8 decoders commonly do. In this case forward decoders usually use the following heuristic: restart from the last character that cause the error unless it was the first character in a codepoint. The idea here is that if the first character in a codepoint is bad we just move to the next one. If any of the trail characters are wrong we assume that everything before is one bad character and restart from there. (It is possible to have more sophisticated handling but it slows things down).
+In the example above, the code threw an exception on invalid UTF-8. Often you want to handle it gracefully, substituting `U'\uFFFD'` for an invalid character, like UTF-8 decoders commonly do. In this case, forward decoders usually use the following heuristic: restart from the last character that caused the error unless it was the first character in a codepoint. The idea here is that if the first character in a codepoint is bad we just move to the next one. If any of the trail characters are wrong, we assume that everything before is one bad character and restart from there. (It is possible to have more sophisticated handling, but it slows things down.)
 
-For reverse decoding this approach works but produces suboptimal results (as in "very different from what forward decoder would produce"). Since we read backwards an error almost always indicates that everything we read so far is unrecoverable garbage and needs to be replaced. Thus, it is better to simply always restart from the next character. For example
+For reverse decoding this approach works but produces suboptimal results (as in "very different from what a forward decoder would produce"). Since we read backwards, an error almost always indicates that everything we read so far is unrecoverable garbage and needs to be replaced. Thus, it is better to simply always restart from the next character. For example:
 
 ```cpp
 
