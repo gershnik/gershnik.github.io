@@ -6,6 +6,9 @@ date:   2021-03-24 07:08:00 -0700
 tags: c++ unicode
 ---
 
+_Update 2026-08-07_: Added missing transition from state 6 on `f1..f3`. H/T [@PtrCz](https://github.com/PtrCz).
+<hr style="border:none;height:1px;background-color:#f0f0f0;">
+
 * TOC
 {:toc}
 
@@ -107,7 +110,7 @@ private:
         12,60,12, 0, 0,12,12,72,12,72,12,12,
         12,60,12, 0,12,12,12,72,12,72, 0,12,
         12,12,12,12,12, 0, 0,12,12,12,12,12,
-        12,12,12,12,12,12,12,12,12,12,12, 0
+        12,12,12,12,12,12, 0,12,12,12,12, 0
     };
 };
 ```
