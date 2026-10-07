@@ -1,10 +1,9 @@
 ---
 layout: bare
 exclude: true
-sitemap:
-  exclude: 'yes'
 title: "RDPlenty"
 description: "Simple RDP Client for macOS"
+image: images/rdplenty.png
 date: 2026-09-17 00:00:00 -0700
 ---
 

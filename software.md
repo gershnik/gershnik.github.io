@@ -25,6 +25,9 @@ Below is the list of various applications and libraries I've published over the 
 * [Tiny Intercom](apps/intercom){:target="_blank" rel="noopener"} 
 : Repurpose an old, unused iPhone/iPad/Android device or even a Mac (Apple Silicone only) into an audio intercom. Free, as in beer, with no in-app purchases or ads but not open source.
 
+* [RDPlenty](apps/rdplenty){:target="_blank" rel="noopener"}
+: A streamlined RDP client for macOS. It lets you connect to Windows PCs and virtual machines using Microsoft's Remote Desktop Protocol, while keeping the experience simple, Mac-friendly and easy to integrate into larger workflows.
+
 * [Keep-Awake](https://github.com/gershnik/keep-awake){:target="_blank" rel="noopener"}
 : A small tool that allows you to prevent a Windows machine from sleeping/hibernating. This is useful, for example, when connecting over SSH to a Windows machine that is configured to sleep when not used.
   Unlike other solutions to this task, keep-awake doesn't change global computer settings and so doesn't leave them 'orphaned' if it is abnormally terminated.
