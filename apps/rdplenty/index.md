@@ -11,6 +11,14 @@ RDPlenty is a streamlined RDP client for macOS. It lets you connect to Windows P
 
 It deliberately avoids some of the complexity and troublesome features found in more general-purpose RDP clients, while adding automation features that are often missing elsewhere.
 
+The app is available for macOS 11 (Big Sur) or greater for Intel and Apple Silicon.
+ 
+You can obtain it from [AppStore](https://apps.apple.com/us/app/rdplenty/id6812901601) or
+directly download [RDPlenty-1.2.dmg](https://www.gershnik.com/apps/RDPlenty/RDPlenty-1.2.dmg). 
+Both versions currently behave identically.
+
+<hr>
+
 * TOC
 {:toc}
 
