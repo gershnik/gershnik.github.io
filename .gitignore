@@ -1,7 +1,8 @@
-_site
+/.vscode
+/_site
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
-vendor
-.tools
-_drafts
+/vendor
+/.tools
+/_drafts

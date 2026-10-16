@@ -1,4 +1,5 @@
 {
+    "workbench.browser.openLocalhostLinks": false,
     "spellright.language": [
         "en"
     ],
