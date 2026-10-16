@@ -14,7 +14,7 @@ It deliberately avoids some of the complexity and troublesome features found in 
 The app is available for macOS 11 (Big Sur) or greater for Intel and Apple Silicon.
  
 You can obtain it from [AppStore](https://apps.apple.com/us/app/rdplenty/id6812901601) or
-directly download [RDPlenty-1.2.dmg](https://www.gershnik.com/apps/RDPlenty/RDPlenty-1.2.dmg). 
+directly download [RDPlenty-1.3.dmg](https://www.gershnik.com/apps/RDPlenty/RDPlenty-1.3.dmg). 
 Both versions currently behave identically.
 
 <hr>
