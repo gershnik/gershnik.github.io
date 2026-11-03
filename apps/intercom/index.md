@@ -84,7 +84,7 @@ If you don't have any of these settings or your terminal keeps disconnecting fro
 
 ## Support
 
-Please report bugs and suggestion to <a id="maillink" data-mail="firmest.privets.34" data-domain="icloud.com" href="#">this e-mail</a>. 
+Please report bugs and suggestion to <a id="maillink" data-mail="gershnik" data-domain="hotmail.com" href="#">this e-mail</a>. 
 All bug reports, comment and suggestions, constructive or not, are welcome! 
 
 ## Privacy Policy

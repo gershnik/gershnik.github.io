@@ -86,7 +86,7 @@ Note that the consequence of having no telemetry is that the developer does not 
 
 ## Support
 
-Please report bugs and suggestions to <a id="maillink" data-mail="firmest.privets.34" data-domain="icloud.com" href="#">this e-mail</a>.
+Please report bugs and suggestions to <a id="maillink" data-mail="gershnik" data-domain="hotmail.com" href="#">this e-mail</a>.
 
 Bug reports, comments and suggestions, constructive or otherwise, are welcome.
 
