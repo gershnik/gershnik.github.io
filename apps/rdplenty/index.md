@@ -84,6 +84,10 @@ The only permission the app asks for is local network access. It does not reques
 
 Note that the consequence of having no telemetry is that the developer does not automatically learn about crashes, connection failures or other problems. If you encounter an issue, please report it.
 
+## More information
+
+The documentation for the current version of the app can be found in the [User Guide](help/). In particular, you might want to examine the [list of common issues](help/issues.html).
+
 ## Support
 
 Please report bugs and suggestions to <a id="maillink" data-mail="gershnik" data-domain="hotmail.com" href="#">this e-mail</a>.

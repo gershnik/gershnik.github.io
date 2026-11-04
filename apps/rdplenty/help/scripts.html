@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pre-connect scripts &#8212; RDPlenty Help  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=9928b8b1" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e300f423" />
+    <script src="_static/documentation_options.js?v=7f41d439"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Application logs" href="logs.html" />
+    <link rel="prev" title="Common issues" href="issues.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="pre-connect-scripts">
+<h1>Pre-connect scripts</h1>
+<p>A connection can run a script or executable before startup.</p>
+<p>The pre-connect action runs locally on your Mac before the RDP connection is established.</p>
+<p>This is useful when the remote machine needs some preparation first — for example, waking a sleeping computer, starting a virtual machine, bringing up a VPN, or performing some other setup required before the RDP service becomes reachable.</p>
+<p>Pre-connect actions are configured on the <strong>Scripting</strong> tab of the connection properties.</p>
+<section id="script-location">
+<h2>Script location</h2>
+<p>For security, pre-connect scripts must be stored in:</p>
+<p><code class="docutils literal notranslate"><span class="pre">~/Library/Application</span> <span class="pre">Scripts/com.gershnik.RDPlenty</span></code></p>
+<p>or in a subdirectory beneath it.</p>
+<p>The selected file itself must reside there. A symbolic link in this directory that points to an executable somewhere else cannot be used.</p>
+<p>If you need to run a program or script located elsewhere, place a small wrapper script in the application scripts directory and have the wrapper invoke it.</p>
+<p>The script must be executable. If it is not already, you can give it execute permission from Terminal with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>a+x<span class="w"> </span>myscript
+</pre></div>
+</div>
+</section>
+<section id="arguments">
+<h2>Arguments</h2>
+<p>You can specify command-line arguments to pass to the script in the connection properties.</p>
+<p>Arguments are parsed using normal command-line quoting and escaping rules. For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>"argument with spaces"
+'argument with spaces'
+argument\ with\ spaces
+</pre></div>
+</div>
+<p>Backslash escapes such as <code class="docutils literal notranslate"><span class="pre">\n</span></code> can also be used.</p>
+<p>Environment variables are <strong>not expanded</strong> in the arguments field. For example, <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> is passed to the script literally rather than being replaced with your home directory.</p>
+<p>If you need environment-variable expansion or other shell processing, perform it inside the script itself.</p>
+</section>
+<section id="while-the-script-is-running">
+<h2>While the script is running</h2>
+<p>The connection does not begin until the pre-connect action has finished.</p>
+<p>While it is running, RDPlenty displays the script’s output so you can see its progress or any errors it reports.</p>
+<p>From that screen, you can choose to:</p>
+<ul class="simple">
+<li><p>continue with the RDP connection without waiting for the script, or</p></li>
+<li><p>cancel the connection.</p></li>
+</ul>
+<p>This is useful if a preparation step is taking longer than expected or has failed in a way that does not actually prevent you from connecting.</p>
+</section>
+<section id="example-waking-a-remote-computer">
+<h2>Example: waking a remote computer</h2>
+<p>The following script uses an external <code class="docutils literal notranslate"><span class="pre">wakeonlan</span></code> utility to wake a computer, then waits briefly for its RDP port to become reachable before allowing the connection to proceed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-eu
+
+<span class="nv">HOST</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">1</span><span class="p">:?Usage: </span><span class="nv">$0</span><span class="p"> HOST</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">PORT</span><span class="o">=</span><span class="m">3389</span>
+<span class="nv">WAIT_SECONDS</span><span class="o">=</span><span class="m">5</span>
+
+rdp_ready<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"waiting for host..."</span>
+<span class="w">    </span>nc<span class="w"> </span>-z<span class="w"> </span>-G<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOST</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$PORT</span><span class="s2">"</span><span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<span class="o">}</span>
+
+/usr/local/bin/wakeonlan<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST</span><span class="s2">"</span>
+
+<span class="k">if</span><span class="w"> </span>rdp_ready<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+
+<span class="nv">deadline</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">WAIT_SECONDS</span><span class="w"> </span><span class="k">))</span>
+
+<span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="s2">"</span><span class="w"> </span>-lt<span class="w"> </span><span class="s2">"</span><span class="nv">$deadline</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span>rdp_ready<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="m">1</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>The host name or address can then be supplied to the script through the arguments field in the connection properties.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">Keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clipboard.html">Clipboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="passwords.html">Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="certificates.html">Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">Common issues</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pre-connect scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#script-location">Script location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#arguments">Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#while-the-script-is-running">While the script is running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-waking-a-remote-computer">Example: waking a remote computer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Application logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programmatic.html">Programmatic interface</a></li>
+</ul>
+
+
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

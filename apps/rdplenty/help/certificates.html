@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Certificates &#8212; RDPlenty Help  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=9928b8b1" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e300f423" />
+    <script src="_static/documentation_options.js?v=7f41d439"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Common issues" href="issues.html" />
+    <link rel="prev" title="Passwords" href="passwords.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="certificates">
+<h1>Certificates</h1>
+<p>When a connection is established, the remote Windows machine presents a certificate identifying itself.</p>
+<p>If that certificate is already trusted by your Mac’s <strong>Keychain</strong>, the connection proceeds without asking you anything.</p>
+<p>Otherwise, the certificate is shown to you and you are asked whether to trust it. Review the certificate carefully before accepting it.</p>
+<section id="trusting-a-certificate-for-a-connection">
+<h2>Trusting a certificate for a connection</h2>
+<p>If you choose to trust an unrecognized certificate, the application saves that exact certificate with the connection.</p>
+<p>From then on, that connection will accept the same certificate without prompting you again. If the server later presents a different certificate, you will be asked to review it.</p>
+<p>This trust applies only to that particular connection. The certificate is <strong>not added to your Keychain</strong>, and trusting it here does not make it trusted by other applications or by macOS in general.</p>
+<p>This model is sometimes called <strong>trust on first use</strong>, or <strong>TOFU</strong>.</p>
+</section>
+<section id="reviewing-or-removing-a-saved-certificate">
+<h2>Reviewing or removing a saved certificate</h2>
+<p>A certificate previously accepted for a connection can be viewed in that connection’s properties.</p>
+<p>You can also remove it there. The next time the connection encounters a certificate that is not otherwise trusted by your Keychain, you will be asked to review it again.</p>
+</section>
+<section id="exporting-certificates">
+<h2>Exporting certificates</h2>
+<p>Whenever a certificate is displayed, you can export it to a file.</p>
+<p>This can be useful if you want to inspect it with another tool, keep a copy, or import it into your Keychain yourself.</p>
+<p>The application never adds, removes, or modifies certificates in your Keychain.</p>
+</section>
+<section id="programmatic-connections">
+<h2>Programmatic connections</h2>
+<p>One-off <a class="reference internal" href="programmatic.html"><span class="std std-doc">programmatic</span></a> connections do not have a saved application connection record, so there is nowhere to store a connection-specific trusted certificate.</p>
+<p>For these connections, if the server certificate is not already trusted by your Keychain, you will be prompted to review it each time. To avoid that prompt, add the certificate to your Keychain yourself.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">Keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clipboard.html">Clipboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="passwords.html">Passwords</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Certificates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#trusting-a-certificate-for-a-connection">Trusting a certificate for a connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reviewing-or-removing-a-saved-certificate">Reviewing or removing a saved certificate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exporting-certificates">Exporting certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#programmatic-connections">Programmatic connections</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">Common issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Pre-connect scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Application logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programmatic.html">Programmatic interface</a></li>
+</ul>
+
+
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

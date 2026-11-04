@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Programmatic interface &#8212; RDPlenty Help  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=9928b8b1" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e300f423" />
+    <script src="_static/documentation_options.js?v=7f41d439"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Command-line interface" href="cli.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="programmatic-interface">
+<h1>Programmatic interface</h1>
+<p>RDPlenty can be asked to open connections by other applications, scripts, launchers, and automation tools. There are two interfaces for doing this:</p>
+<ul class="simple">
+<li><p><strong>URLs</strong> are convenient when you only need to launch a connection. Opening an <code class="docutils literal notranslate"><span class="pre">x-rdplenty:</span></code> URL hands the request to RDPlenty and does not return a result to the caller.</p></li>
+<li><p><strong>AppleScript / <code class="docutils literal notranslate"><span class="pre">osascript</span></code></strong> provides the same basic operations, but reports invalid arguments and whether RDPlenty accepted the request.</p></li>
+</ul>
+<p>Both interfaces can either start an existing saved connection or create a one-off connection to a server.</p>
+<section id="urls">
+<h2>URLs</h2>
+<p>RDPlenty handles URLs of the form:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x-rdplenty://connect?...
+</pre></div>
+</div>
+<p>To start a saved connection, specify its name:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x-rdplenty://connect?name=Office%20PC
+</pre></div>
+</div>
+<p>To connect directly to a server, specify its address:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x-rdplenty://connect?address=server.example.com
+</pre></div>
+</div>
+<p>A non-default port can be supplied as well:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x-rdplenty://connect?address=server.example.com&amp;port=3390
+</pre></div>
+</div>
+<p>Account and password, when needed for a one-off connection, are supplied as URL user information:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x-rdplenty://alice:secret@connect?address=server.example.com
+</pre></div>
+</div>
+<p>As with any URL, characters that are not valid literally in a URL must be percent-encoded. This is especially relevant to connection names, account names, passwords, and other values containing spaces or special characters.</p>
+<section id="connection-options">
+<h3>Connection options</h3>
+<p>The following query parameters can be used with either a saved connection or a one-off connection:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>resolution=1920x1080
+fullscreen=true
+clipboard=false
+sound=false
+</pre></div>
+</div>
+<p>For Boolean options, <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">on</span></code>, and <code class="docutils literal notranslate"><span class="pre">1</span></code> mean enabled; <code class="docutils literal notranslate"><span class="pre">false</span></code>, <code class="docutils literal notranslate"><span class="pre">no</span></code>, <code class="docutils literal notranslate"><span class="pre">off</span></code>, and <code class="docutils literal notranslate"><span class="pre">0</span></code> mean disabled. Values are case-insensitive. A Boolean parameter with no value enables that option, for example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>x-rdplenty://connect?name=Office%20PC&amp;fullscreen
+</pre></div>
+</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">name</span></code> is used, the saved connection supplies the server address, port, and other settings. The options above override the corresponding settings for this launch only; they do not modify the saved connection.</p>
+<p>URL requests are fire-and-forget: macOS does not provide a result from an application launched through a URL. Invalid or unusable parameters are therefore ignored rather than reported back to the application that opened the URL. Any related warnings or errors are written to the application logs; see <a class="reference internal" href="logs.html"><span class="std std-doc">Logs</span></a>. Use the scripting interface when the caller needs error reporting.</p>
+</section>
+</section>
+<section id="applescript-and-osascript">
+<h2>AppleScript and <code class="docutils literal notranslate"><span class="pre">osascript</span></code></h2>
+<p>RDPlenty exposes two scripting commands corresponding to the same two operations.</p>
+<p>To start a saved connection:</p>
+<div class="highlight-applescript notranslate"><div class="highlight"><pre><span></span><span class="k">tell</span> <span class="nb">application</span> <span class="s2">"RDPlenty"</span>
+    <span class="nb">start</span> <span class="nv">connection</span> <span class="s2">"Office PC"</span>
+<span class="k">end</span> <span class="k">tell</span>
+</pre></div>
+</div>
+<p>Optional settings can be overridden for that launch:</p>
+<div class="highlight-applescript notranslate"><div class="highlight"><pre><span></span><span class="k">tell</span> <span class="nb">application</span> <span class="s2">"RDPlenty"</span>
+    <span class="nb">start</span> <span class="nv">connection</span> <span class="s2">"Office PC"</span> <span class="nv">resolution</span> <span class="s2">"1920x1080"</span> <span class="nv">fullscreen</span> <span class="no">true</span> <span class="nv">clipboard</span> <span class="no">false</span>
+<span class="k">end</span> <span class="k">tell</span>
+</pre></div>
+</div>
+<p>To make a one-off connection directly to a server:</p>
+<div class="highlight-applescript notranslate"><div class="highlight"><pre><span></span><span class="k">tell</span> <span class="nb">application</span> <span class="s2">"RDPlenty"</span>
+    <span class="nv">connect</span> <span class="k">to</span> <span class="s2">"server.example.com"</span>
+<span class="k">end</span> <span class="k">tell</span>
+</pre></div>
+</div>
+<p>The direct connection form also accepts a port and credentials:</p>
+<div class="highlight-applescript notranslate"><div class="highlight"><pre><span></span><span class="k">tell</span> <span class="nb">application</span> <span class="s2">"RDPlenty"</span>
+    <span class="nv">connect</span> <span class="k">to</span> <span class="s2">"server.example.com"</span> <span class="nv">port</span> <span class="mi">3390</span> <span class="nv">account</span> <span class="s2">"alice"</span> <span class="nv">password</span> <span class="s2">"secret"</span>
+<span class="k">end</span> <span class="k">tell</span>
+</pre></div>
+</div>
+<p>The available optional settings are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">account</span></code> — account used for authentication</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code> — password for a one-off <code class="docutils literal notranslate"><span class="pre">connect</span></code> request; it requires an account</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">port</span></code> — server port for a one-off <code class="docutils literal notranslate"><span class="pre">connect</span></code> request</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resolution</span></code> — desktop size in <code class="docutils literal notranslate"><span class="pre">WidthxHeight</span></code> form, for example <code class="docutils literal notranslate"><span class="pre">&quot;1920x1080&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fullscreen</span></code> — whether to open full screen</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clipboard</span></code> — whether clipboard sharing is enabled</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sound</span></code> — whether remote sound is played</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">port</span></code> must be between 1 and 65535. The Boolean options use normal AppleScript Boolean values, <code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<p>The same commands can be invoked from the shell with <code class="docutils literal notranslate"><span class="pre">osascript</span></code>. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>osascript<span class="w"> </span>-e<span class="w"> </span><span class="s1">'tell application "RDPlenty" to start connection "Office PC"'</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>osascript<span class="w"> </span>-e<span class="w"> </span><span class="s1">'tell application "RDPlenty" to connect to "server.example.com" account "alice"'</span>
+</pre></div>
+</div>
+<p>Unlike URLs, scripting commands report argument errors to the caller and return a Boolean result indicating whether the request was accepted. A successful result means that RDPlenty was able to start processing the requested connection; it does not mean that the remote login itself ultimately succeeded.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">Keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clipboard.html">Clipboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="passwords.html">Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="certificates.html">Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">Common issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Pre-connect scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Application logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Programmatic interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#urls">URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#applescript-and-osascript">AppleScript and <code class="docutils literal notranslate"><span class="pre">osascript</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

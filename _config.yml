@@ -67,3 +67,8 @@ kramdown:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# for the RDPlenty help but fucking Jekyll doesn't allow
+# specific paths
+include:
+  - _static

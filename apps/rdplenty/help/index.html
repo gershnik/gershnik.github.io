@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>User Guide &#8212; RDPlenty Help  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=9928b8b1" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e300f423" />
+    <script src="_static/documentation_options.js?v=7f41d439"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Keyboard" href="keyboard.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="user-guide">
+<h1>User Guide</h1>
+<p>RDPlenty is an RDP client for macOS designed around simplicity, predictable behavior, privacy, and easy integration into larger workflows.</p>
+<p>Rather than exposing every feature the RDP protocol can provide, it focuses on the parts that work well in normal Mac-to-Windows use, simplifies a few common annoyances, and adds automation features that are often missing from other RDP clients.</p>
+<section id="designed-for-mac-users">
+<h2>Designed for Mac users</h2>
+<p>A few behaviors are intentionally different from those of more traditional RDP clients.</p>
+<ul class="simple">
+<li><p>The remote desktop is always scaled proportionally to fit the application window. If the remote resolution is larger or smaller than the window, the display is stretched or reduced as needed rather than surrounded by scrollbars.</p></li>
+<li><p>The <a class="reference internal" href="keyboard.html"><span class="doc">keyboard</span></a> mapping is designed so that Mac keyboard habits continue to work naturally inside Windows. The left <code class="docutils literal notranslate"><span class="pre">⌘</span></code> key acts as Ctrl by default, so ordinary Mac shortcuts such as <code class="docutils literal notranslate"><span class="pre">⌘S</span></code> for Save, <code class="docutils literal notranslate"><span class="pre">⌘F</span></code> for Find, <code class="docutils literal notranslate"><span class="pre">⌘A</span></code> for Select All, <code class="docutils literal notranslate"><span class="pre">⌘C</span></code> for Copy, and <code class="docutils literal notranslate"><span class="pre">⌘V</span></code> for Paste all behave as expected. This is not limited to the usual special-casing of Copy and Paste.</p></li>
+<li><p><a class="reference internal" href="clipboard.html"><span class="doc">Clipboard sharing</span></a> is either enabled in both directions or disabled entirely. There are no separate Mac-to-Windows and Windows-to-Mac modes to configure or accidentally leave mismatched.</p></li>
+</ul>
+</section>
+<section id="privacy">
+<h2>Privacy</h2>
+<p>RDPlenty does not require an account or any cloud service, and it does not collect user data or track how you use the application.</p>
+<p>In particular, the application does not collect telemetry.</p>
+<p>The trade-off is that the developers do not automatically learn about crashes, connection failures, or other problems you encounter. If something goes wrong, it will only become known if you report it yourself. The <a class="reference internal" href="logs.html"><span class="doc">application logs</span></a> can be useful when diagnosing or reporting an issue.</p>
+</section>
+<section id="workflow-integration">
+<h2>Workflow integration</h2>
+<p>RDPlenty can do more than simply open a saved connection.</p>
+<ul class="simple">
+<li><p>A <a class="reference internal" href="scripts.html"><span class="doc">pre-connect script</span></a> can run locally before a connection is opened. This can be used to wake a sleeping machine, start a virtual machine, establish a VPN, or perform any other preparation required before RDP becomes available.</p></li>
+<li><p>Connections can be started from the bundled <a class="reference internal" href="cli.html"><span class="doc">command-line interface</span></a>, through <a class="reference internal" href="programmatic.html"><span class="doc">URLs or AppleScript</span></a>, or from the graphical application itself. These interfaces make it possible to integrate RDPlenty into scripts, launchers, automation tools, and other workflows.</p></li>
+</ul>
+</section>
+<section id="features-intentionally-not-supported">
+<h2>Features intentionally not supported</h2>
+<p>Some RDP features are deliberately omitted because they tend to work well enough in simple cases to appear reliable, but become inefficient or troublesome with larger or more demanding workloads.</p>
+<ul class="simple">
+<li><p><strong>File redirection and clipboard file transfer</strong> are not supported. Small transfers may appear to work perfectly, which makes it easy to assume that the mechanism is suitable for general file transfer. In practice, large files or directory trees can perform poorly, stall, or leave the application tied up while the transfer completes or fails. SMB, <code class="docutils literal notranslate"><span class="pre">scp</span></code>, or cloud storage are better suited to moving files between Mac and Windows.</p></li>
+<li><p><strong>Printer redirection</strong> is not supported. Cross-platform printer redirection depends on matching printer capabilities and drivers between Windows and macOS, and frequently works poorly as a result. It is usually simpler to print to PDF or transfer the document to the Mac and print it locally.</p></li>
+</ul>
+</section>
+<section id="other-features-not-currently-implemented">
+<h2>Other features not currently implemented</h2>
+<p>The following features are not currently supported. They may be considered in future versions if there is sufficient demand.</p>
+<ul class="simple">
+<li><p>RDP Gateway</p></li>
+<li><p>Smart card redirection</p></li>
+<li><p>Microphone redirection</p></li>
+<li><p>Camera redirection</p></li>
+<li><p>Organizing saved connections into folders</p></li>
+</ul>
+</section>
+<section id="using-this-guide">
+<h2>Using this guide</h2>
+<p>Most of the application is intended to be straightforward to use without documentation. The pages in this guide cover behavior that is less obvious, configurable, or useful when integrating RDPlenty into other workflows.</p>
+<p>Use the navigation sidebar to browse the available topics.</p>
+<div class="small-note docutils container">
+<p>This documentation uses content from <a class="reference internal" href="foss.html"><span class="doc">open source software packages</span></a>.</p>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">Keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clipboard.html">Clipboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="passwords.html">Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="certificates.html">Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">Common issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Pre-connect scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Application logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programmatic.html">Programmatic interface</a></li>
+</ul>
+
+
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

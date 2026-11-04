@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Command-line interface &#8212; RDPlenty Help  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=9928b8b1" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e300f423" />
+    <script src="_static/documentation_options.js?v=7f41d439"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Programmatic interface" href="programmatic.html" />
+    <link rel="prev" title="Application logs" href="logs.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="command-line-interface">
+<h1>Command-line interface</h1>
+<p>A command-line interface, <code class="docutils literal notranslate"><span class="pre">rdpcli</span></code>, is included inside the RDPlenty application bundle, under:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>RDPlenty.app/Contents/SharedSupport/rdpcli
+</pre></div>
+</div>
+<p>You can invoke it directly from there, add that directory to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, or create a symbolic link to <code class="docutils literal notranslate"><span class="pre">rdpcli</span></code> somewhere that is already in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<p>For example, if the application is installed in <code class="docutils literal notranslate"><span class="pre">/Applications</span></code>, you could create a symbolic link such as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"/Applications/RDPlenty.app/Contents/SharedSupport/rdpcli"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/usr/local/bin/rdpcli
+</pre></div>
+</div>
+<p>Do not copy the executable out of the application bundle. A copied executable will not be updated when RDPlenty itself is updated. A symbolic link continues to point to the version installed with the application.</p>
+<p>Because RDPlenty is sandboxed, it cannot install the command-line tool into your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> or create this link for you.</p>
+<p><code class="docutils literal notranslate"><span class="pre">rdpcli</span></code> lets you open RDP sessions from Terminal while still using RDPlenty for the actual connection.</p>
+<p>There are two ways to start a session:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">start</span></code> opens one of your saved RDPlenty connections by name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connect</span></code> opens a one-off connection directly to a host name or IP address.</p></li>
+</ul>
+<p>Use:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>to see the available commands, or:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>start<span class="w"> </span>--help
+rdpcli<span class="w"> </span>connect<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>for the options accepted by each command.</p>
+<section id="starting-a-saved-connection">
+<h2>Starting a saved connection</h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">start</span></code> when you already have a connection configured in RDPlenty:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>start<span class="w"> </span><span class="s2">"Office PC"</span>
+</pre></div>
+</div>
+<p>The name must match the saved connection name.</p>
+<p>You can override selected settings for this invocation without changing the saved connection itself. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>start<span class="w"> </span><span class="s2">"Office PC"</span><span class="w"> </span>--resolution<span class="w"> </span>1920x1080<span class="w"> </span>--full-screen<span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+</section>
+<section id="connecting-directly-to-a-host">
+<h2>Connecting directly to a host</h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">connect</span></code> for a one-off connection that does not require a saved connection record:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>connect<span class="w"> </span>server.example.com
+</pre></div>
+</div>
+<p>An IP address can be used instead of a host name:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>connect<span class="w"> </span><span class="m">192</span>.168.1.25
+</pre></div>
+</div>
+<p>RDP’s default port is used unless another port is specified:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>connect<span class="w"> </span>server.example.com<span class="w"> </span>--port<span class="w"> </span><span class="m">3390</span>
+</pre></div>
+</div>
+</section>
+<section id="authentication">
+<h2>Authentication</h2>
+<p>The account name can be supplied with <code class="docutils literal notranslate"><span class="pre">--account</span></code> or <code class="docutils literal notranslate"><span class="pre">-a</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>connect<span class="w"> </span>server.example.com<span class="w"> </span>--account<span class="w"> </span>alice
+</pre></div>
+</div>
+<p>Passwords can be supplied non-interactively in either of two ways.</p>
+<section id="from-an-environment-variable">
+<h3>From an environment variable</h3>
+<p><code class="docutils literal notranslate"><span class="pre">--password-env</span></code> names an environment variable containing the password:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">RDP_PASSWORD</span><span class="o">=</span><span class="s1">'secret'</span><span class="w"> </span>rdpcli<span class="w"> </span>connect<span class="w"> </span>server.example.com<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--account<span class="w"> </span>alice<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--password-env<span class="w"> </span>RDP_PASSWORD
+</pre></div>
+</div>
+<p>The option takes the <strong>name of the variable</strong>, not the password itself.</p>
+</section>
+<section id="from-a-file-descriptor">
+<h3>From a file descriptor</h3>
+<p><code class="docutils literal notranslate"><span class="pre">--password-fd</span></code> reads the password from an already-open file descriptor:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>connect<span class="w"> </span>server.example.com<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--account<span class="w"> </span>alice<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--password-fd<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="m">3</span>&lt;password.txt
+</pre></div>
+</div>
+<p>This is useful when another program or script is responsible for supplying the credential.</p>
+</section>
+</section>
+<section id="display-and-session-options">
+<h2>Display and session options</h2>
+<p>Both <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">connect</span></code> accept the same session-related options.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--resolution</span></code> or <code class="docutils literal notranslate"><span class="pre">-r</span></code> sets the initial desktop size:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--resolution<span class="w"> </span>1920x1080
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--full-screen</span></code> or <code class="docutils literal notranslate"><span class="pre">-f</span></code> controls whether the session opens full screen:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--full-screen<span class="w"> </span><span class="nb">true</span>
+--full-screen<span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--clipboard</span></code> or <code class="docutils literal notranslate"><span class="pre">-c</span></code> controls clipboard sharing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--clipboard<span class="w"> </span><span class="nb">true</span>
+--clipboard<span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--sound</span></code> or <code class="docutils literal notranslate"><span class="pre">-s</span></code> controls playback of remote audio:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--sound<span class="w"> </span><span class="nb">true</span>
+--sound<span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+<p>The Boolean options require an explicit value. <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">on</span></code>, and <code class="docutils literal notranslate"><span class="pre">1</span></code> mean enabled; <code class="docutils literal notranslate"><span class="pre">false</span></code>, <code class="docutils literal notranslate"><span class="pre">no</span></code>, <code class="docutils literal notranslate"><span class="pre">off</span></code>, and <code class="docutils literal notranslate"><span class="pre">0</span></code> mean disabled. These values are case-insensitive.</p>
+</section>
+<section id="examples">
+<h2>Examples</h2>
+<p>Open a saved connection in full screen:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>start<span class="w"> </span><span class="s2">"Workstation"</span><span class="w"> </span>--full-screen<span class="w"> </span><span class="nb">true</span>
+</pre></div>
+</div>
+<p>Open a saved connection at a specific resolution with clipboard sharing disabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>start<span class="w"> </span><span class="s2">"Workstation"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resolution<span class="w"> </span>1600x1000<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--clipboard<span class="w"> </span><span class="nb">false</span>
+</pre></div>
+</div>
+<p>Connect directly to a host using a particular account and port:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>connect<span class="w"> </span>rdp.example.com<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--port<span class="w"> </span><span class="m">3390</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--account<span class="w"> </span>alice
+</pre></div>
+</div>
+<p>Connect using a password supplied through an environment variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">RDP_PASSWORD</span><span class="o">=</span><span class="s1">'secret'</span><span class="w"> </span><span class="se">\</span>
+rdpcli<span class="w"> </span>connect<span class="w"> </span>rdp.example.com<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--account<span class="w"> </span>alice<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--password-env<span class="w"> </span>RDP_PASSWORD
+</pre></div>
+</div>
+</section>
+<section id="version-information">
+<h2>Version information</h2>
+<p>To print the installed application version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rdpcli<span class="w"> </span>--version
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">Keyboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clipboard.html">Clipboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="passwords.html">Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="certificates.html">Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">Common issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Pre-connect scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Application logs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command-line interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#starting-a-saved-connection">Starting a saved connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-directly-to-a-host">Connecting directly to a host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#display-and-session-options">Display and session options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-information">Version information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="programmatic.html">Programmatic interface</a></li>
+</ul>
+
+
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

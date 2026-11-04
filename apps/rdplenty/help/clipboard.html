@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Clipboard &#8212; RDPlenty Help  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=9928b8b1" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e300f423" />
+    <script src="_static/documentation_options.js?v=7f41d439"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Passwords" href="passwords.html" />
+    <link rel="prev" title="Keyboard" href="keyboard.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="clipboard">
+<h1>Clipboard</h1>
+<p>Clipboard sharing is enabled by default and works in both directions: you can copy and paste between your Mac and the remote machine. You can disable it in the connection settings, on the <strong>Features</strong> tab.</p>
+<section id="supported-content">
+<h2>Supported content</h2>
+<p>The clipboard can transfer three kinds of content:</p>
+<ul class="simple">
+<li><p><strong>Plain text</strong> — always supported, including accented characters, non-Latin scripts, and emoji.</p></li>
+<li><p><strong>Formatted text</strong> — bold, italics, fonts, colors, tables, lists, and other formatting can be preserved. How faithfully the formatting is reproduced depends on the receiving application and on whether the required fonts are installed there.</p></li>
+<li><p><strong>Images</strong> — screenshots, photographs, and image selections copied from an application are transferred as pictures, with transparency preserved.</p></li>
+</ul>
+<p>Files and folders are deliberately not supported. The RDP clipboard mechanism cannot transfer files reliably. To move files between the two machines, use a file share such as SMB or <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
+<p>Other clipboard formats — such as sounds or data understood only by a particular application — are ignored. Copying such content does not produce an error or warning; there is simply nothing to paste on the other side.</p>
+</section>
+<section id="choosing-a-format">
+<h2>Choosing a format</h2>
+<p>Most applications put the same clipboard content into several formats at once. For example, copying a spreadsheet selection may put plain text, formatted text, and HTML on the clipboard.</p>
+<p>The application you paste into chooses the format it prefers. This is why the same clipboard contents might appear as a formatted table in a word processor but as plain text in a text editor.</p>
+<p>You do not normally need to choose the format yourself. If the result is less formatted than expected, try pasting into another application or use <strong>Paste Special</strong>, if the receiving application provides it.</p>
+<section id="html">
+<h3>HTML</h3>
+<p>When formatted content is transferred as HTML, only the copied fragment is transferred, not the entire page or document it came from. Styles that exist only in the surrounding document may therefore be lost, making the pasted result look plainer than the original.</p>
+<p>If the source application also provides RTF, that will often preserve the appearance better. Most word processors provide RTF, and the receiving application will normally choose it automatically when appropriate.</p>
+</section>
+</section>
+<section id="line-endings">
+<h2>Line endings</h2>
+<p>Text line endings are converted automatically when crossing between macOS and Windows.</p>
+<p>Mac and Unix programs normally use a single LF character (<code class="docutils literal notranslate"><span class="pre">\n</span></code>) to end a line, while Windows uses CR+LF (<code class="docutils literal notranslate"><span class="pre">\r\n</span></code>). Text copied to the remote Windows machine is converted to CR+LF; text copied back to the Mac is converted back to LF.</p>
+<p>This means pasted text uses the native line endings expected by applications on each side, without stray <code class="docutils literal notranslate"><span class="pre">^M</span></code> characters or lines running together.</p>
+</section>
+<section id="images">
+<h2>Images</h2>
+<p>Images are converted between Mac and Windows image formats as necessary. Transparency is preserved, and embedded color profiles are honored where the image format supports them, so screenshots and photographs should retain their original colors.</p>
+<p>Image conversion is lossless, but large images can take noticeable time and memory to process. A full multi-monitor screenshot, for example, may be quite large.</p>
+</section>
+<section id="how-clipboard-transfer-works">
+<h2>How clipboard transfer works</h2>
+<p>Clipboard data is transferred <strong>on demand</strong>. When you copy something, the other machine is initially told only which clipboard formats are available. The actual data is not transferred until an application on the other side requests it, normally when you paste. Some applications may request it earlier as soon as they notice that the clipboard has changed.</p>
+<p>This means that large clipboard contents are not sent across the connection unless something actually requests them.</p>
+<p>There are two important consequences:</p>
+<ul class="simple">
+<li><p><strong>Large or slow transfers can time out.</strong> If fetching an item takes more than a few seconds, the transfer is abandoned and the paste produces nothing. This is most likely on a slow or congested connection. Copying and pasting again will usually work.</p></li>
+<li><p><strong>The source must remain connected.</strong> Because the actual data is fetched only when requested, clipboard contents copied on one machine must still be available when the other machine requests them. For example, if you copy something on the remote machine and then disconnect before pasting it on the Mac, the clipboard contents can no longer be fetched and the paste produces nothing.</p></li>
+</ul>
+</section>
+<section id="limitations">
+<h2>Limitations</h2>
+<ul class="simple">
+<li><p><strong>Files and folders cannot be copied through the clipboard.</strong> Use SMB, <code class="docutils literal notranslate"><span class="pre">scp</span></code>, or another file-transfer method instead.</p></li>
+<li><p><strong>Very large clipboard items may fail.</strong> There is no fixed size limit, but transfers that take more than a few seconds are abandoned. For genuinely large data, use a file share or <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p></li>
+<li><p><strong>Rich formatting is best-effort.</strong> Formatting that depends on fonts, styles, or embedded objects unavailable on the receiving machine may be approximated or lost.</p></li>
+<li><p><strong>Unsupported clipboard formats are ignored.</strong> If the copied content is not plain text, formatted text, or an image, nothing will appear when you try to paste it.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keyboard.html">Keyboard</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Clipboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#supported-content">Supported content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#choosing-a-format">Choosing a format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#line-endings">Line endings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#images">Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-clipboard-transfer-works">How clipboard transfer works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="passwords.html">Passwords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="certificates.html">Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">Common issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Pre-connect scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Application logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programmatic.html">Programmatic interface</a></li>
+</ul>
+
+
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
